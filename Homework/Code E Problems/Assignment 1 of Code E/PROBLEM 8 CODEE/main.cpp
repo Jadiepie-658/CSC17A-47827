@@ -60,43 +60,36 @@ int  srch1(const char sent[],const char pattern[],int index)
 {
    int sentLen = strlen(sent);
    int patLen = strlen(pattern);
-   int i;
+   int i, j;
    for(i = index; i < (sentLen - patLen + 1); ++i)
-   { int j = 0;
+   { 
    for(j = 0; j < patLen; j++)
    {
        if(sent[i + j] != pattern[j])
            break;
-       
+    }    
        if(j >= patLen)
            return i;
-   }
-   if(index == -1)
-   {
-       cout << "None" << endl;
-       return -1;
-   }
-   }
-   
-       
+ 
+ }
+   return -1;
+     
 
 }
 void srchAll(const char sent[],const char pattern[],int match[])
 {
-    int patLen = strlen(pattern); //finding size of pattern input
-    int sentLen = strlen(sent); // finding size of sentence input
-    int ind = 0; //index
-    int i = 0;
-    while(ind = srch1(sent, pattern, ind) != -1)
+    int ind = 0;
+    int pattern_ind = 0;
+    while((pattern_ind = srch1(sent, pattern, pattern_ind)) != -1)
     {
-        match[i++] = ind;
-        ind = ind + 1;
+        match[ind++] = pattern_ind;
+        pattern_ind = pattern_ind + 1;
     }
     
 }
 void print(const char array[])
 {
-    for(int i = 0; array[i] != '\0'; ++i)
+    for(int i = 0; array[i] != ' '; ++i)
     {
         cout << array[i];
     }
@@ -104,6 +97,10 @@ void print(const char array[])
 }
 void print(const int match[])
 {
-    for(int i = 0; match[i] != -1; ++i)
-    cout << match[i] << endl;
+
+
+for (int i = 0; match[i] != -1; ++i)
+
+cout << "Pattern found at index " << match[i]+1 << endl;
+
 }
