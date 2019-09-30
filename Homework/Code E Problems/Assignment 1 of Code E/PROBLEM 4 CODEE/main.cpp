@@ -64,10 +64,9 @@ int read(char array[][COLMAX], int &rowDet)
     int cols = 0;
     string input;
     int size;
-    size = strlen(rows, cols);
-    for(int i = 0; i < rowDet; i++)
+    while(cin >> input)
     {
-        cin >> input;
+        
         size = input.length();
         
         if(size > 0 && size < COLMAX)
@@ -77,33 +76,46 @@ int read(char array[][COLMAX], int &rowDet)
             if(size > cols)
             {
                 cols = size;
-            }
+            } 
+            
         }
+       
         else
         {
             cout << "Error" << endl;
         }
+     
     }
+    
     rowDet = rows;
+    
+
+    
     return cols;
     
 }
 void sort(char array[][COLMAX],int rows,int cols)
 {
     int i, j;
+    int min;
     char temp[COLMAX];
-    for(i = 0; i < rows; i++)
+    for(i = 0; i < rows - 1; i++)
     {
-        for(j = 0; j < (rows - 1); j++)
+    min = i;
+        for(j = i + 1; j < rows; j++)
         {
-            if(strcmp(array[j], array[j+1]) > 0)
+            if(strcmp(array[j], array[min]) < 0)
             {
-                strcpy(temp, array[j]);
-                strcpy(array[j], array[j+1]);
-                strcpy(array[j+1], temp);
-                
+min = j;
             }
-        }
+           
+                 
+        
+        } 
+        strcpy(temp, array[min]);
+        strcpy(array[min], array[i]);
+        strcpy(array[i], temp);
+       
     }
 }
 void print(const char array[][COLMAX],int rows,int cols)
