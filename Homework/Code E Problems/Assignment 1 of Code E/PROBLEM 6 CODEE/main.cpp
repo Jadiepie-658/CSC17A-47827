@@ -61,41 +61,112 @@ void read(vector<int>&even, vector<int>&odd) {
 }
 
 void prntVec(vector<int>even, vector<int>odd, int n) {
+    
+    int size = 0;
+    if(even.size() > odd.size())
+    {
+        size = even.size();
+        
+    }
+    else
+    {
+        size = odd.size();
+    }
 
-   cout << endl << setw(n) << "Vector" << setw(n) << "Even" << setw(n) << "Odd" << endl;
-    for (int i = 0; i < even.size(); i++) {
-        cout << even[i];
-        cout << setw(n) << endl;
-    }
-    cout << endl;
-  
-    for (int i = 0; i < odd.size(); i++) {
-        cout << setw(n) << setw(n) << setw(n) << odd[i];
+   cout  << setw(n) << "Vector" << setw(n) << "Even" << setw(n) << "Odd" << endl;
+    for (int i = 0; i < size; i++) {
+        cout << setw(n * 2);
+        if(i < even.size())
+        {
+            cout << even.at(i); 
+        }
+        else
+        cout << " ";
+        
+        cout << setw(n);
+        
+        if(i < odd.size())
+        {
+            cout << odd.at(i);
+        }
+        else 
+        cout << " ";
+        
         cout << endl;
-    }
-    cout << endl;
+      
+}
 }
 
 void copy1(vector<int>&even, vector<int>&odd, int arr[][COLMAX]) {
+int size = 0;
 
-    for (int i = 0; i < even.size(); i++) {
-        arr[i][0] = even[i];
+if(even.size() > odd.size())
+    {
+        size = even.size();
+        
     }
-    for (int i = 0; i < odd.size(); i++) {
-        arr[i][1] = odd[i];
+    else
+    {
+        size = odd.size();
     }
+  
+  for(int i = 0; i < size; i ++)
+  {
+      for(int j = 0; j <= 1; j++)
+      {
+          switch(j)
+          {
+              case 0:
+              if(i < even.size()){
+              arr[i][j] = even.at(i);
+              }
+              else
+              arr[i][j] = -1;
+              break;
+              
+              case 1:
+              if(i < odd.size()){
+              arr[i][j] = odd.at(i);
+              }
+              else
+              arr[i][j] = -1;
+              break;
+              
+              default:
+              break;
+          }
+      }
+  }
 }
 
 void prntAry(const int arr[][COLMAX], int evenSize, int oddSize, int n) {
+    
+    int size = 0;
+     if(evenSize > oddSize)
+    {
+        size = evenSize;
+        
+    }
+    else
+    {
+        size = oddSize;
+    }
         cout << setw(n) << "Array" << setw(n) << "Even" << setw(n) << "Odd" << endl;
+   
+     for (int i = 0; i < size; i++) {
+    cout << setw(n * 2);
+    for (int j = 0; j <= 1; j++) {
+        if (arr[i][j] != -1) {
+            cout << arr[i][j];
+        }
+            else
+                cout << " ";
 
-    for (int i = 0; i < evenSize; i++) {
-        cout << arr[i][0] << " ";
-        cout << setw(n) << endl;
+                    cout << setw(n);
+          
+        }
+    cout << endl;    
     }
-    for (int i = 0; i < oddSize; i++) {
-        cout << arr[i][1] << " ";
-        cout << setw(n) << endl;
-        ;
-    }
+    
 }
+
