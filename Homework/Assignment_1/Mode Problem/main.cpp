@@ -1,106 +1,97 @@
-/* 
- * File:   main.cpp
- * Author: Dr. Mark E. Lehr
- * Created on Sept 18,2019 9:07 AM
- * Purpose:  Mode Template
- */
-
-//System Libraries Here
-#include <iostream>
-#include <cstdlib>
-#include <ctime>
+#include<iostream>
 using namespace std;
 
-//User Libraries Here
+int mode(int [], int);
+float mean(int [], int);
+float median(int [], int);
 
-//Global Constants Only, No Global Variables
-//Like PI, e, Gravity, or conversions
-
-//Function Prototypes Here
-int *filAray(int,int);
-void prntAry(int *,int,int);
-void prtMode(int *);
-void destroy(int *);
-void markSrt(int *,int);
-int *mode(int *,int);
-
-//Program Execution Begins Here
-int main(int argc, char** argv) {
-    //Set the random number seed
-    srand(static_cast<unsigned int>(time(0)));
-
-    //Declare all Variables Here
-    int size,modVal,perLine,*a1D,*modAray;
+int main()
+{
+    int size;
+    int *array = new int[size];
+    int mod;
+    float means, med;
+  
+   
+    cout << "Please enter the size of the array" << endl;
+    cin >> size;
     
-    //Input or initialize values Here
-    size=5;
-    modVal=5;
-    a1D=filAray(size,modVal);
-    
-    //Display the unsorted array
-    prntAry(a1D,size,modVal);
-    
-    
-    //Process/Calculations Here
-    markSrt(a1D,size);
-    modAray=mode(a1D,size);
-    
-    //Output Located Here
-    prntAry(a1D,size,modVal);
-    prtMode(a1D);
-    
-    //Clean up
-    destroy(a1D);
-    destroy(modAray);
-
-    //Exit
-    return 0;
-}
-
-void prtMode(int *a){
-    
-}
-
-int *mode(int *a,int n){
-    //You write the function
-    int *modAray=new int[2];
-    modAray[0]=0;//Number of modes go here
-    modAray[1]=0;//Frequence goes here
-    //mode[2 to mode[0]];
-    return modAray;
-}
-
-void markSrt(int *a,int n){
-    for(int i=0;i<n-1;i++){
-        for(int j=i+1;j<n;j++){
-            if(a[i]>a[j]){
-                int temp=a[i];
-                a[i]=a[j];
-                a[j]=temp;
-            }
-        }
+    cout << "Now enter the integers of the array" << endl;
+    for(int i = 0; i < size; i++)
+    {
+        cin >> array[i];
     }
-}
-
-void destroy(int *a){
-    delete []a;
-}
-
-void prntAry(int *a,int n,int perLine){
-    cout<<endl;
-    for(int i=0;i<n;i++){
-        cout<<a[i]<<" ";
-        if(i%perLine==(perLine-1))cout<<endl;
+    
+    mod = mode(array, size);
+    means = mean(array, size);
+   
+    if(mod == -1)
+    {
+        cout << "No mode occurs" << endl;
     }
-    cout<<endl;
+    else
+    cout << "The mode of the array is " << mod << endl;
+    cout << "The mean of the array is " << means << endl;
+    median(array, size);
+    delete[] array;
 }
-
-int *filAray(int n,int m){
-    n=n<2?2:
-      n>1000?1000:n;
-    int *array=new int[n];
-    for(int i=0;i<n;i++){
-        array[i]=i%m;//2 digit numbers
+/*bug: only finds one , I understand the process of sorting and how I'd find the frequencies
+ * of each number but I'm confused on how to output more than one mode
+ * I also had trouble with the median function
+ * */
+int mode(int array[], int size)
+{
+  int mode = -1;
+  int frequency;
+  int count;
+  for(int i = 0; i < size; i++)
+  {
+      frequency = array[i];
+      count = 0;
+              
+              for(int j = 0; j < size; j++)
+              {
+                  if(frequency == array[j])
+                  {
+                      count++;
+                  }
+              }
+      if(count > 1 && count > mode)
+          mode = frequency;
+}
+  return mode;
+}
+float mean(int array[], int size)
+{
+    float sum = 0;
+    float avg;
+    
+    for(int i = 0; i < size; i++)
+    {
+        sum = sum + array[i];
     }
-    return array;
+    avg = sum / size;
+    
+    return avg;
+}
+float median(int array[], int size)
+{
+    int middle;
+    float avg;
+    float median;
+    
+    middle = size / 2;
+    
+    if(size % 2)
+    {
+         median = (array[middle] + array[middle + 1]) / 2.0;
+         cout << "The median of the array is " << median << endl;
+    }
+    else
+    {
+        median = array[middle];
+      
+       cout << "The median of the array is " << median << endl;
+    }
+    return median;
 }
