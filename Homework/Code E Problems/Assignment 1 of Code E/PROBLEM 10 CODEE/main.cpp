@@ -55,52 +55,84 @@ int main(int argc, char** argv) {
 }
 int  read(char array[][COLMAX],int &rowDet)
 {
-       int colDet = 0;
+       int colDet = 0; 
+       
     cin.ignore(1024, '\n');
-    for (int count=0;count<rowDet;count++) {
+    
+    for (int count=0; count < rowDet; count++) {
+        
         cin.getline(array[count], COLMAX);
         int length=strlen(array[count]);
-        if (length>colDet){
+        
+        if (length > colDet){
          colDet=length;
         }
     }
     return colDet;
 
 }
-void sort(char array[][COLMAX], int rowIn, int, const char replace[], const char with[]) { //Sort by row
+void sort(char array[][COLMAX], int rows, int, const char replace[], const char with[]) { //Sort by row
+   int i, j;
+    int min;
     char temp[COLMAX];
-  for(int count=0;count<rowIn-1;count++) {
-        int min=count;
-        for(int cntr=count+1;cntr<rowIn;cntr++) {
-            if (strcmp(array[min], array[cntr], replace, with)>0) {
-                min=cntr;
+    for(i = 0; i < rows - 1; i++)
+    {
+    min = i;
+        for(j = i + 1; j < rows; j++)
+        {
+            if(strcmp(array[j], array[min], replace, with) > 0)
+            {
+min = j;
+            }
+           
+                 
+        
+        } 
+        if(min != i){
+        strcpy(temp, array[i]);
+        strcpy(array[i], array[min]);
+        strcpy(array[min], temp);
         }
+       
     }
-    if (min!=count) {
-            strcpy(temp, array[count]);
-            strcpy(array[count], array[min]);
-            strcpy(array[min], temp);
-    }
-}
 }
 
-int strcmp(char first[], char second[], const char replace[], const char with[]) { //Replace sort order
-    char firCopy[COLMAX];
-       for (int count=0;firCopy[count]=='\0';count++) {
-        firCopy[count] = first[count];
+int strcmp(char first[], char second[], const char replace[], const char with[]) { 
+    //Replace sort order
+    char copy1[COLMAX];
+    
+       for (int count=0; copy1[count]=='\0';count++) {
+           
+        copy1[count] = first[count];
     }
-    char secCopy[COLMAX];
-    for (int count=0;secCopy[count]=='\0';count++) {
-        secCopy[count] = second[count];
+    char copy2[COLMAX];
+    for (int count=0; copy2[count]=='\0';count++) {
+        
+        copy2[count] = second[count];
       
     }
+     int copy1Len = strlen(first);
+    int copy2Len = strlen(second);
+    int repLen = strlen(replace);
     
-    return strcmp(firCopy, secCopy);
+    for(int i = 0; i < copy1Len && i < copy2Len; i++)
+    {
+        for(int j = 0; j < repLen && copy1[i] == replace[j] && copy2[i] == replace[j]; j++)
+    {
+    if(copy1[i] == replace[j] && copy2[i] == replace[j])
+    {
+        copy1[i] = with[j];
+        copy2[i] = with[j];
+    }
+    }
 }
 
+    
+    return strcmp(copy1, copy2);
+}
 
-void print(const char array[][COLMAX], int rowIn, int){
-    for (int count=0;count<rowIn;count++){
+void print(const char array[][COLMAX], int rows, int cols){
+    for (int count=0;count<rows;count++){
         cout<<array[count]<<endl;
     }
 }
