@@ -21,6 +21,10 @@ int main(){
     
     prntDat(reversed, size);
     
+    delete [] data;
+    delete[] sorted;
+    delete [] reversed;
+    
 	return 0;
 }
 
@@ -37,14 +41,7 @@ int *getData(int &size)
     {
         cin >> array[i];
         
-        if(i == (size + 1) - 1)
-        {
-            cout << array[i];
-            break;
-        }
-        cout << array[i] << " ";
     }
-    cout << endl;
     
     return array;
 }
@@ -58,23 +55,60 @@ int *sort(const int *array, int size)
     {
         arr2[i] = array[i]; //copying array elements
     }
-    for(int i = 0; i < size; i++)
-    {
-        for(int j = 0; j < size; j++)
-        {
-            temp = arr2[i];
-            arr2[i] = arr2[j];
-            arr2[j] = temp;
-        }
-    }
+
+   int startScan, minIndex; 
+   int minElem; 
+   
+//sort example from the book but with pointers and their notations
+   for (startScan = 0; startScan < (size - 1); startScan++)
+   {
+      minIndex = startScan;
+      minElem = arr2[startScan];
+      
+      for(int index = startScan + 1; index < size; index++)
+      {
+         if (*(arr2 + index) < minElem)
+         {
+            minElem = arr2[index];
+            minIndex = index;
+         }
+      }
+      arr2[minIndex] = arr2[startScan];
+      arr2[startScan] = minElem;
+      
+   }
+   
+   
+   for(int i =0; i<size-1; i++)
+   {
+       cout << arr2[i] << " ";
+   }
+    cout <<  arr2[size-1];
+   
+     cout << endl;
     
     return arr2;
 }
-int *reverse(const int *, int)
+int *reverse(const int *sorts, int size)
 {
+    int *revs = nullptr;
+  revs = new int[size];
     
+    for(int i = 0; i < size; i++)
+    { //switches locations of the elements in the array
+        revs[i + 1] = sorts[size - i - 1];
+    }
+    
+    return revs;
 }
-void prntDat(const int *, int)
-{
-    
+void prntDat(const int *rev, int size)
+{/*make sure the counter starts at 1 because you assigned the first value of the og array
+  to the revs[1] not revs[0]
+  */
+  
+    for(int i = 1; i < size; i++)
+    {
+        cout << rev[i] << " ";
+    }
+    cout << rev[size]; //for the spacing
 }
