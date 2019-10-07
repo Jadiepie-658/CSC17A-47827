@@ -1,96 +1,103 @@
 #include <iostream>
-#include <iomanip>
+#include<iomanip>
+#include<cstdlib>
+
 
 using namespace std;
+
 int *getData(int &);
-void prntDat(int *, int);
+void prntData(int *, int);
 float *median(int *, int);
-int maximum(int arr, int arr2);
+void prntMed(float *);
+int SIZE;
 
 int main(){
-	int n;
-        int array[n];
-        float median[n * 2];
-        
-        cin >> n;
-        
-        *getData(n);
-        
-        prntDat(array, n);
-        
-        
+    
+    
+    int *array;
+    float *med;
+    
+    array = getData(SIZE);
+    prntData(array, SIZE);
+    
+    med = median(array, SIZE);
+    prntMed(med);
+    
+    delete [] array;
+    delete [] med;
+
 	return 0;
 }
 
+
 int *getData(int &size)
 {
-    int *array = new int[size];
+    
+    cin >> size;
+    
+    
+   int *array = new int[size];
     
     for(int i = 0; i < size; i++)
     {
         cin >> array[i];
     }
-    return size, array;
     
-    
+    return array;
 }
-
-void prntDat(int *array, int size)
+void prntData(int *array, int size)
 {
     for(int i = 0; i < size; i++)
     {
-        cout << array[i] << endl;
+        if(i == size - 1)
+        {
+            cout << array[i];
+            break;
+        }
+        cout << array[i] << " ";
     }
-}
-int maximum(int arr, int arr2)
-{
-    return arr < arr2? arr : arr2;
+    cout << endl;
 }
 float *median(int *array, int size)
 {
-    int i = 0, j = 0;
-    int size2 = size * 2;
-    float *med = new float[size2];
-    int min_index = 0;
-    int max_index = size;
-    float median;
     
-    while(min_index <= max_index)
+   float *med = new float[size + 2];
+    float ans;
+    
+    int j = 2;
+    for(int i = 0; i < size; i++)
+    {//copy the elements of the array and type cast it
+        med[j] = static_cast<float>(array[i]);
+        j++;
+    }
+    //if the array is even
+    if(size % 2 == 0)
     {
-        i = (min_index + max_index) / 2;
-        j = ((size + size2 + 1) / 2) - i;
-        
-        if(i < size && med[j - 1] > array[i])
-        {
-            min_index = i + 1;
-        }
-        
-        else if(i > 0 && j < size2 && med[j] < array[i -1])
-        {
-            max_index = i - 1;
-        }
-        else
-        {
-            if(i == 0)
-            {
-                median = med[j - 1];
-            }
-            else if(j == 0)
-                median = array[i - 1];
-            
-            else
-                median = maximum(array[i - 1], med[j - 1]);
-                break;
-        }
+        ans = med[4] + med[5]; //need two steps because pointers can't be divided
+        ans = ans / 2;
+    }
+    else
+    {
+        ans = (*(med + 2) + *(med + 6)) / 2;
     }
     
-    if((size + size2) % 2 == 1)
-        return median;
+    med[0] = size + 2;
     
-    if(i == size)
-        return (median + med[j]) / 2.0;
+    med[1] = ans;
+    
+    return med;
+}
+void prntMed(float *med)
+{
    
-    if(j == size2)
-        return (median + array[i]) / 2.0;
+    cout << med[0] << " ";
+    
+    cout << showpoint << setprecision(3);
+    
+    for(int i = 1; i <= SIZE; i++)
+    {
+        cout << med[i] << " ";
+    }
+    cout << med[SIZE + 1];
     
 }
