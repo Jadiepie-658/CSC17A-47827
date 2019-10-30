@@ -27,7 +27,7 @@ void assign();
 void display(char bo[9][9]);
 void readFile(char board[9][9]);
 void writeFile(char board[9][9]);
-void mineCount();
+void mineNum();
 void play();
 void adjacent();
 int check();
@@ -146,12 +146,12 @@ void assign() {
 
     }
 
-    mineCount();
+    mineNum();
 
 }
 //this function counts the amount of mines are around the tile you just revealed
 
-void mineCount() {
+void mineNum() {
     for (int i = 0; i < 9; i++) {
         for (int j = 0; j < 9; j++) {
             if (mineAry[i][j] == '!') {
