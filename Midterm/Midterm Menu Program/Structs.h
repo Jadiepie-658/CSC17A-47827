@@ -26,7 +26,7 @@ struct Customer {
 struct Gross 
 {
     char company[100]; //company name
-    char addy[100]; //address
+    char add[100]; //address
     char name[100]; //worker name
     char boss[100];//Authorized signature
     int work; //hours which worker worked
